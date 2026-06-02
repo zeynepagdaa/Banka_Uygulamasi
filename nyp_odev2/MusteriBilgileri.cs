@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace nyp_odev2
 {
-
+    
     public abstract class MusteriBilgileri
     {
 
@@ -13,6 +13,7 @@ namespace nyp_odev2
         public int MusteriNo { get; set; }
         public List<HesapBilgileri> Hesaplar { get; set; }
 
+        public string TamAdGosterim => $"{MusteriNo} - {Ad} {Soyad}";
         public MusteriBilgileri(string ad, string soyad, int musteriNo)
         {
 
@@ -47,4 +48,7 @@ namespace nyp_odev2
             return 0m;
         }
     }
+    
+    
+
 }

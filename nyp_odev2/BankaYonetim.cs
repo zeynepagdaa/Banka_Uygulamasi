@@ -28,6 +28,28 @@ namespace nyp_odev2
             return Musteriler.Max(m => m.MusteriNo) + 1;
         }
 
+        public int YeniHesapNoUret()
+        {
+            int sonHesapNo = 5000;
+
+
+            foreach (var musteri in Musteriler)
+            {
+                if (musteri.Hesaplar.Count > 0)
+                {
+
+                    int maxMusteriHesap = musteri.Hesaplar.Max(h => h.HesapNo);
+
+
+                    if (maxMusteriHesap > sonHesapNo)
+                    {
+                        sonHesapNo = maxMusteriHesap;
+                    }
+                }
+            }
+            return sonHesapNo + 1;
+        }
+
         public void MusteriEkle(MusteriBilgileri yeniMusteri)
         {
 
@@ -89,6 +111,16 @@ namespace nyp_odev2
             hesap.HesapOzeti.Add(new IslemBilgileri("Para Çekme", tutar, "Hesaptan para çekildi."));
         }
 
+        public void ParaYatir(HesapBilgileri hesap, decimal tutar)
+        {
+            if (tutar <= 0)
+            {
+                throw new Exception("Yatırılacak tutar sıfırdan büyük olmalıdır!");
+            }
+
+            hesap.Bakiye += tutar;
+            hesap.HesapOzeti.Add(new IslemBilgileri("Para Yatırma", tutar, "Hesaba nakit yatırıldı."));
+        }
 
         public void HavaleYap(MusteriBilgileri gonderenMusteri, HesapBilgileri gonderenHesap, HesapBilgileri aliciHesap, decimal tutar)
         {
